@@ -2,6 +2,7 @@ package com.example.seonoh.popularmovies.single_movie_details
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.seonoh.popularmovies.R
 
 class SingleMovie : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
