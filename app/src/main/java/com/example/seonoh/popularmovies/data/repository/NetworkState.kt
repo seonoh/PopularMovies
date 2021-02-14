@@ -7,6 +7,9 @@ enum class Status{
     FAILED
 }
 
+//https://developers.themoviedb.org/3/movies/get-movie-details
+//Get Popular API
+
 class NetworkState(val status : Status, val msg : String) {
     companion object{
         val LOADED : NetworkState
