@@ -1,4 +1,4 @@
-package com.example.seonoh.popularmovies.single_movie_details
+package com.example.seonoh.popularmovies.ui.single_movie_details
 
 import androidx.lifecycle.LiveData
 import com.example.seonoh.popularmovies.data.api.TheMovieDBInterface
