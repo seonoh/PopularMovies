@@ -130,12 +130,16 @@ class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapt
         val hadExtraRow = hasExtraRow()
         this.networkState = networkState
         val hasExtraRow = hasExtraRow()
-
-        if (hadExtraRow) {
-            notifyItemRemoved(super.getItemCount())
-        } else {
-            notifyItemInserted(super.getItemCount())
+        if (hadExtraRow != hasExtraRow) {
+            if (hadExtraRow) {
+                notifyItemRemoved(super.getItemCount())
+            } else {
+                notifyItemInserted(super.getItemCount())
+            }
+        } else if (hasExtraRow && previousState != newNetworkState) {
+            notifyItemChanged(itemCount - 1)
         }
+
 
     }
 
