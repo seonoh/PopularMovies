@@ -60,6 +60,18 @@ class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapt
         return networkState != null && networkState != NetworkState.LOADED
     }
 
+    override fun getItemCount(): Int {
+        return super.getItemCount() + if (hasExtraRow()) 1 else 0
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (hasExtraRow() && position == itemCount - 1) {
+            NETWORK_VIEW_TYPE
+        } else {
+            MOVIE_VIEW_TYPE
+        }
+    }
+
     class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem.id == newItem.id
 
@@ -112,4 +124,20 @@ class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapt
 
         }
     }
+
+    fun setNetworkState(newNetworkState: NetworkState) {
+        val previousState = this.networkState
+        val hadExtraRow = hasExtraRow()
+        this.networkState = networkState
+        val hasExtraRow = hasExtraRow()
+
+        if (hadExtraRow) {
+            notifyItemRemoved(super.getItemCount())
+        } else {
+            notifyItemInserted(super.getItemCount())
+        }
+
+    }
+
+
 }
