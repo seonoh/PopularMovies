@@ -59,7 +59,13 @@ class MainActivity : AppCompatActivity() {
                     if (viewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
                 txtErrorPopular.visibility =
                     if (viewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
+
+                if (!viewModel.listIsEmpty()) {
+                    movieAdapter.setNetworkState(it)
+                }
             }
+
+
         })
     }
 
