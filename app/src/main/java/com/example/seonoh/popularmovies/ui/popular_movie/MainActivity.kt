@@ -9,18 +9,15 @@ import com.example.seonoh.popularmovies.databinding.ActivityMainBinding
 import com.example.seonoh.popularmovies.ui.single_movie_details.SingleMovie
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var viewModel: MainActivityViewModel
+
+    lateinit var movieRepository: MoviePagedListRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.run {
-//            btn.setOnClickListener {
-//                val intent = Intent(this@MainActivity, SingleMovie::class.java)
-//                intent.putExtra("id",299534)
-//                startActivity(intent)
-//            }
-        }
     }
 }
