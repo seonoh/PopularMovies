@@ -7,19 +7,21 @@ import com.example.seonoh.popularmovies.data.api.TheMovieDBInterface
 import com.example.seonoh.popularmovies.data.vo.MovieDetails
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
-class MovieDetailsNetworkDataSource(private val apiService : TheMovieDBInterface, private val compositeDisposable : CompositeDisposable){
+class MovieDetailsNetworkDataSource(
+    private val apiService: TheMovieDBInterface,
+    private val compositeDisposable: CompositeDisposable
+) {
     private val _networkState = MutableLiveData<NetworkState>()
 
-    val networkState : LiveData<NetworkState>
+    val networkState: LiveData<NetworkState>
         get() = _networkState
 
     private val _downloadedMovieDetailsResponse = MutableLiveData<MovieDetails>()
-    val downloadedMovieResponse : LiveData<MovieDetails>
+    val downloadedMovieResponse: LiveData<MovieDetails>
         get() = _downloadedMovieDetailsResponse
 
-    fun fetchMovieDetails(movieId : Int){
+    fun fetchMovieDetails(movieId: Int) {
         _networkState.postValue(NetworkState.LOADING)
 
         try {
@@ -30,16 +32,16 @@ class MovieDetailsNetworkDataSource(private val apiService : TheMovieDBInterface
                         {
                             _downloadedMovieDetailsResponse.postValue(it)
                             _networkState.postValue(NetworkState.LOADED)
-                        },{
+                        }, {
                             _networkState.postValue(NetworkState.ERROR)
-                            Log.e("MovieDetailsDataSource",it.message);
+                            Log.e("MovieDetailsDataSource", it.message);
 
                         }
                     )
             )
 
-        }catch (e : Exception){
-            Log.e("MovieDetailsDataSource",e.message);
+        } catch (e: Exception) {
+            Log.e("MovieDetailsDataSource", e.message);
 
 
         }

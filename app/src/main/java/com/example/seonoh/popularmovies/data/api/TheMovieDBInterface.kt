@@ -8,11 +8,11 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-interface TheMovieDBInterface  {
+interface TheMovieDBInterface {
 
     @GET("movie/{movie_id}")
-    fun getMovieDetails(@Path("movie_id") id:Int) : Single<MovieDetails>
+    fun getMovieDetails(@Path("movie_id") id: Int): Single<MovieDetails>
 
     @GET("movie/popular")
-    fun getPopularMovie(@Query("page") page:Int) : Single<MovieResponse>
+    fun getPopularMovie(@Query("page") page: Int): Single<MovieResponse>
 }

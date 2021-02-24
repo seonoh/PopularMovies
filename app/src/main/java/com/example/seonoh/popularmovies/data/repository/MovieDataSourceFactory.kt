@@ -6,12 +6,15 @@ import com.example.seonoh.popularmovies.data.api.TheMovieDBInterface
 import com.example.seonoh.popularmovies.data.vo.Movie
 import io.reactivex.disposables.CompositeDisposable
 
-class MovieDataSourceFactory(private val apiService: TheMovieDBInterface, private val compositeDisposable: CompositeDisposable) : DataSource.Factory<Int, Movie>() {
+class MovieDataSourceFactory(
+    private val apiService: TheMovieDBInterface,
+    private val compositeDisposable: CompositeDisposable
+) : DataSource.Factory<Int, Movie>() {
 
     val moviesLiveDataSource = MutableLiveData<MovieDataSource>()
 
     override fun create(): androidx.paging.DataSource<Int, Movie> {
-        val movieDataSource = MovieDataSource(apiService,compositeDisposable)
+        val movieDataSource = MovieDataSource(apiService, compositeDisposable)
         moviesLiveDataSource.postValue(movieDataSource)
         return movieDataSource
     }
