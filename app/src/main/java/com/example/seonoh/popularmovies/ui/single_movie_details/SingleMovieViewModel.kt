@@ -6,15 +6,16 @@ import com.example.seonoh.popularmovies.data.repository.NetworkState
 import com.example.seonoh.popularmovies.data.vo.MovieDetails
 import io.reactivex.disposables.CompositeDisposable
 
-class SingleMovieViewModel(private val movieRepository : MovieDetailsRepository,movieId : Int) : ViewModel(){
+class SingleMovieViewModel(private val movieRepository: MovieDetailsRepository, movieId: Int) :
+    ViewModel() {
 
-        private val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
-    val movieDetails : LiveData<MovieDetails> by lazy {
-        movieRepository.fetchSingleMovieDetails(compositeDisposable,movieId)
+    val movieDetails: LiveData<MovieDetails> by lazy {
+        movieRepository.fetchSingleMovieDetails(compositeDisposable, movieId)
     }
 
-    val networkState : LiveData<NetworkState> by lazy {
+    val networkState: LiveData<NetworkState> by lazy {
         movieRepository.getMovieDetailsNetworkState()
     }
 

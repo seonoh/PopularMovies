@@ -18,7 +18,8 @@ import com.example.seonoh.popularmovies.databinding.MovieListItemBinding
 import com.example.seonoh.popularmovies.databinding.NetworkStateItemBinding
 import com.example.seonoh.popularmovies.ui.single_movie_details.SingleMovie
 
-class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
+class PopularMoviePagedListAdapter(public val context: Context) :
+    PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
 
     val MOVIE_VIEW_TYPE = 1
     val NETWORK_VIEW_TYPE = 2
@@ -28,21 +29,21 @@ class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapt
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == MOVIE_VIEW_TYPE) {
             return MovieItemViewHolder(
-                    DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context),
-                            R.layout.movie_list_item,
-                            parent,
-                            false
-                    )
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context),
+                    R.layout.movie_list_item,
+                    parent,
+                    false
+                )
             )
         } else {
             return NetworkStateItemViewHolder(
-                    DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context),
-                            R.layout.network_state_item,
-                            parent,
-                            false
-                    )
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context),
+                    R.layout.network_state_item,
+                    parent,
+                    false
+                )
             )
         }
 
@@ -73,12 +74,15 @@ class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapt
     }
 
     class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem.id == newItem.id
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem == newItem
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+            oldItem == newItem
     }
 
-    class MovieItemViewHolder(private val binding: MovieListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MovieItemViewHolder(private val binding: MovieListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie?, context: Context) {
             binding.run {
@@ -87,8 +91,8 @@ class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapt
 
                 val moviePosterURL = POSTER_BASE_URL + movie?.posterPath
                 Glide.with(binding.root.context)
-                        .load(moviePosterURL)
-                        .into(cvIvMoviePoster)
+                    .load(moviePosterURL)
+                    .into(cvIvMoviePoster)
 
                 root.setOnClickListener {
                     val intent = Intent(context, SingleMovie::class.java)
@@ -102,7 +106,8 @@ class PopularMoviePagedListAdapter(public val context: Context) : PagedListAdapt
 
     }
 
-    class NetworkStateItemViewHolder(private val binding: NetworkStateItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class NetworkStateItemViewHolder(private val binding: NetworkStateItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(networkState: NetworkState?) {
             binding.run {
                 if (networkState != null && networkState == NetworkState.LOADING) {

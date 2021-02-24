@@ -1,7 +1,7 @@
 package com.example.seonoh.popularmovies.ui.single_movie_details
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -18,33 +18,33 @@ import java.util.*
 
 class SingleMovie : AppCompatActivity() {
 
-    private lateinit var binding : ActivitySingleMovieBinding
-    private lateinit var viewModel : SingleMovieViewModel
-    private lateinit var movieRepository : MovieDetailsRepository
+    private lateinit var binding: ActivitySingleMovieBinding
+    private lateinit var viewModel: SingleMovieViewModel
+    private lateinit var movieRepository: MovieDetailsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =DataBindingUtil.setContentView(this,R.layout.activity_single_movie)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_single_movie)
 
-        val movieId : Int = intent.getIntExtra("id",1)
+        val movieId: Int = intent.getIntExtra("id", 1)
 
-        val apiService : TheMovieDBInterface = TheMovieDBClient.getClient()
+        val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         movieRepository = MovieDetailsRepository(apiService)
 
         viewModel = getViewModel(movieId)
 
         viewModel.movieDetails.observe(this, Observer {
-                bindUI(it)
+            bindUI(it)
         })
     }
 
-    fun bindUI(it : MovieDetails){
+    fun bindUI(it: MovieDetails) {
         binding.run {
             movieTitle.text = it.title
             movieTagline.text = it.tagline
             movieReleaseDate.text = it.releaseDate
             movieRating.text = it.rating.toString()
-            movieRuntime.text = it.runtime.toString()+" minute"
+            movieRuntime.text = it.runtime.toString() + " minute"
 
             val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
             movieBudget.text = formatCurrency.format((it.budget))
@@ -55,11 +55,11 @@ class SingleMovie : AppCompatActivity() {
         }
     }
 
-    private fun getViewModel(movieId : Int) : SingleMovieViewModel{
-        return ViewModelProviders.of(this, object : ViewModelProvider.Factory{
+    private fun getViewModel(movieId: Int): SingleMovieViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return SingleMovieViewModel(movieRepository,movieId) as T
+                return SingleMovieViewModel(movieRepository, movieId) as T
             }
         })[SingleMovieViewModel::class.java]
 
